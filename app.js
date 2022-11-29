@@ -3,6 +3,7 @@ const request = require('request');
 const sendgrid = require('@sendgrid/mail');
 const SENDGRID_API_KEY = "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"
 sendgrid.setApiKey(SENDGRID_API_KEY)
+const port = 8080
 
 let msg = {
   from: 'rorystandley@gmail.com',
@@ -81,3 +82,7 @@ app.get('/', (req, res) => {
       }
   })
 });
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
