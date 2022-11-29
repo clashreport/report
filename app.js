@@ -73,11 +73,11 @@ app.get('/', (req, res) => {
         });
         html += "</table>"
         msg.html = html;
-        // sendgrid.send(msg).then((resp) => {
-        //   console.log('Email sent\n', resp)
-        // }).catch((error) => {
-        //   console.error(JSON.stringify(error))
-        // })
+        sendgrid.send(msg).then((resp) => {
+          console.log('Email sent\n', resp)
+        }).catch((error) => {
+          console.error(JSON.stringify(error))
+        })
         res.json("This has run fine")
       }
   })
