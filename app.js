@@ -2,24 +2,16 @@ const express = require('express');
 const request = require('request');
 const sendgrid = require('@sendgrid/mail');
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY
-sendgrid.setApiKey(SENDGRID_API_KEY)
+// sendgrid.setApiKey(SENDGRID_API_KEY)
 const port = process.env.PORT || 3001;
 
 let msg = {
   from: 'rorystandley@gmail.com',
-  to: ['rorystandley@gmail.com','watson.jake1996@gmail.com'],
+  to: ['rorystandley@gmail.com', 'watson.jake1996@gmail.com'],
   subject: 'War Day Results',
 }
 
 const app = express()
-
-// const activeDays = ["Friday", "Saturday", "Sunday", "Monday"]
-
-// function getDayOfWeek(date) {
-//   const dayOfWeek = new Date(date).getDay();
-//   return isNaN(dayOfWeek) ? null :
-//     ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
-// }
 
 function getRequestStuff(url) {
   return options = {
@@ -31,9 +23,10 @@ function getRequestStuff(url) {
   };
 }
 
-app.get('/', (req, res) => {
-  request(getRequestStuff('clans/%232L8CYUP/currentriverrace'), function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+app.get('/:id?', (req, res) => {
+  if (req.params.id && req.params.id === 'rory') {
+    request(getRequestStuff('clans/%232L8CYUP/currentriverrace'), function (error, response, body) {
+      if (!error && response.statusCode == 200) {
 
         let data = JSON.parse((body)).clan.participants;
         let html = "<table border='1' style='width:100%; border-collapse: collapse;'>";
@@ -80,7 +73,10 @@ app.get('/', (req, res) => {
         })
         res.json("This has run fine")
       }
-  })
+    })
+  } else {
+    res.json("This has run fine")
+  }
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
