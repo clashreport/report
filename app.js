@@ -2,8 +2,7 @@ const express = require('express');
 const request = require('request');
 const sendgrid = require('@sendgrid/mail');
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY
-// sendgrid.setApiKey(SENDGRID_API_KEY)
-console.log('THIS IS THE KEY', process.env.SENDGRID_API_KEY)
+sendgrid.setApiKey(SENDGRID_API_KEY)
 const port = process.env.PORT || 3001;
 
 let msg = {
